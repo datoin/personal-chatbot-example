@@ -1,4 +1,4 @@
-# AI Chatbot Example
+# Personal Chatbot Example
 
 A full-stack AI chatbot application with a **FastAPI** backend and a **React** frontend. The backend proxies chat messages to any OpenAI-compatible LLM API (OpenAI, OpenRouter, Ollama, etc.) via LangChain, and the React UI renders responses in real-time using Server-Sent Events (SSE) with full Markdown and LaTeX math support.
 
@@ -48,12 +48,13 @@ A full-stack AI chatbot application with a **FastAPI** backend and a **React** f
 ## Project Structure
 
 ```
-ai-chatbot-example/
+personal-chatbot-example/
 ├── main.py              # FastAPI application & entry point
 ├── config.py            # Pydantic Settings (reads .env)
 ├── pyproject.toml       # Python project metadata & dependencies
 ├── .python-version      # Pinned Python version (3.13)
-├── .env                 # Environment variables (not committed)
+├── .env.example         # Template env file (safe to commit)
+├── .env                 # Your local env variables (git-ignored)
 ├── .gitignore
 ├── uv.lock              # uv lockfile
 ├── ui/                  # React frontend
@@ -110,13 +111,26 @@ ai-chatbot-example/
 ### 1. Clone the repository
 
 ```bash
-git clone <repo-url>
-cd ai-chatbot-example
+git clone git@github.com:datoin/personal-chatbot-example.git
+cd personal-chatbot-example
+```
+
+Or via HTTPS:
+
+```bash
+git clone https://github.com/datoin/personal-chatbot-example.git
+cd personal-chatbot-example
 ```
 
 ### 2. Configure environment variables
 
-Create a `.env` file in the project root (or copy and edit the existing one):
+Copy the example env file and fill in your values:
+
+```bash
+cp .env.example .env
+```
+
+Then edit `.env` with your API key and preferred settings:
 
 ```env
 # Required — your API key for the LLM provider
@@ -133,6 +147,8 @@ OPENAI_MODEL=google/gemma-4-31b-it:free
 # Optional — customise the assistant's personality
 SYSTEM_PROMPT="You are a helpful assistant."
 ```
+
+> **Note:** `.env` is git-ignored and will never be committed. See `.env.example` for all available options.
 
 > **Tip:** To use a local Ollama instance, set `OPENAI_BASE_URL=http://localhost:11434/v1` and `OPENAI_MODEL` to your local model name (e.g. `llama3`). No API key is needed — set `OPENAI_API_KEY` to any non-empty string.
 
